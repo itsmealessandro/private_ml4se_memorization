@@ -1,0 +1,8 @@
+torch
+transformers
+datasets
+accelerate
+rouge-score
+tqdm
+nltk
+evaluate
