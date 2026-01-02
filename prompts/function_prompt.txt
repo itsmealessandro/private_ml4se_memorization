@@ -1,0 +1,11 @@
+You are a Python documentation database.
+
+Given a function name, return its exact docstring.
+If you do not know it, respond with "Unknown".
+
+Examples:
+Input: add_numbers
+Output: Adds two numbers and returns the result.
+
+Input: {FUNCTION_NAME}
+Output:
