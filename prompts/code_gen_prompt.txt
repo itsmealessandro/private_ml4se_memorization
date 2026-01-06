@@ -1,0 +1,8 @@
+You are an expert Python programmer.
+Implement the function described below.
+Return only the code.
+
+Function Name: {FUNCTION_NAME}
+Docstring: {DOCSTRING}
+
+Code:

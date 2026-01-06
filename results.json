@@ -1,0 +1,72 @@
+[
+  {
+    "function_name": "CosmosClient.DeleteStoredProcedure",
+    "original_minhash": 0.18439716312056736,
+    "original_exact": false,
+    "perturbed_minhash": 0.17164179104477612,
+    "robustness_drop": 0.01275537207579125
+  },
+  {
+    "function_name": "unbunchify",
+    "original_minhash": 0.40641711229946526,
+    "original_exact": false,
+    "perturbed_minhash": 0.34579439252336447,
+    "robustness_drop": 0.060622719776100786
+  },
+  {
+    "function_name": "get_log_likelihood",
+    "original_minhash": 0.366120218579235,
+    "original_exact": false,
+    "perturbed_minhash": 0.35602094240837695,
+    "robustness_drop": 0.01009927617085804
+  },
+  {
+    "function_name": "_sort_text",
+    "original_minhash": 0.13559322033898305,
+    "original_exact": false,
+    "perturbed_minhash": 0.14035087719298245,
+    "robustness_drop": -0.004757656853999398
+  },
+  {
+    "function_name": "sliced_gan",
+    "original_minhash": 0.03488372093023256,
+    "original_exact": false,
+    "perturbed_minhash": 0.029411764705882353,
+    "robustness_drop": 0.005471956224350205
+  },
+  {
+    "function_name": "get_valid_cwd",
+    "original_minhash": 0.3067484662576687,
+    "original_exact": false,
+    "perturbed_minhash": 0.22994652406417113,
+    "robustness_drop": 0.07680194219349759
+  },
+  {
+    "function_name": "BGPFieldIPv4.i2m",
+    "original_minhash": 0.07936507936507936,
+    "original_exact": false,
+    "perturbed_minhash": 0.10679611650485436,
+    "robustness_drop": -0.027431037139775002
+  },
+  {
+    "function_name": "fields_for_model",
+    "original_minhash": 0.31896551724137934,
+    "original_exact": false,
+    "perturbed_minhash": 0.3431372549019608,
+    "robustness_drop": -0.02417173766058145
+  },
+  {
+    "function_name": "Server.parse_authn_request",
+    "original_minhash": 0.17105263157894737,
+    "original_exact": false,
+    "perturbed_minhash": 0.21311475409836064,
+    "robustness_drop": -0.04206212251941327
+  },
+  {
+    "function_name": "McVerry2006Asc._get_deltas",
+    "original_minhash": 0.17796610169491525,
+    "original_exact": false,
+    "perturbed_minhash": 0.1792452830188679,
+    "robustness_drop": -0.0012791813239526606
+  }
+]

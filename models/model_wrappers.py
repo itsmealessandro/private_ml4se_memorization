@@ -15,7 +15,6 @@ class LocalLLM:
         output = self.model.generate(
             **inputs,
             max_new_tokens=max_tokens,
-            do_sample=False,
-            temperature=0
+            do_sample=False
         )
         return self.tokenizer.decode(output[0], skip_special_tokens=True)
