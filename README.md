@@ -20,22 +20,18 @@ This project evaluates whether Large Language Models (LLMs) "understand" softwar
     pip install -r requirements.txt
     ```
 
-## 🧪 Running the Experiment
+## 🚀 Quick Start
 
-The core experiment is defined in `main.ipynb`. You can run it using Jupyter Notebook or the provided script.
+Run the full experiment with a single command:
 
-### Option 1: Jupyter Notebook
-1.  Start Jupyter:
-    ```bash
-    jupyter notebook
-    ```
-2.  Open `main.ipynb`.
-3.  Run all cells.
-
-### Option 2: Python Script
-We provide a helper script to run the experiment directly from the terminal:
 ```bash
-python3 run_experiment.py
+./.venv/bin/python run_experiment.py
+```
+
+Or, if you prefer Jupyter Notebook:
+
+```bash
+./.venv/bin/jupyter notebook main.ipynb
 ```
 
 ## 📊 Methodology

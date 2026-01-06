@@ -3,70 +3,70 @@
     "function_name": "CosmosClient.DeleteStoredProcedure",
     "original_minhash": 0.18439716312056736,
     "original_exact": false,
-    "perturbed_minhash": 0.17164179104477612,
-    "robustness_drop": 0.01275537207579125
+    "perturbed_minhash": 0.15950920245398773,
+    "robustness_drop": 0.02488796066657964
   },
   {
     "function_name": "unbunchify",
     "original_minhash": 0.40641711229946526,
     "original_exact": false,
-    "perturbed_minhash": 0.34579439252336447,
-    "robustness_drop": 0.060622719776100786
+    "perturbed_minhash": 0.34285714285714286,
+    "robustness_drop": 0.0635599694423224
   },
   {
     "function_name": "get_log_likelihood",
     "original_minhash": 0.366120218579235,
     "original_exact": false,
-    "perturbed_minhash": 0.35602094240837695,
-    "robustness_drop": 0.01009927617085804
+    "perturbed_minhash": 0.30985915492957744,
+    "robustness_drop": 0.05626106364965755
   },
   {
     "function_name": "_sort_text",
     "original_minhash": 0.13559322033898305,
     "original_exact": false,
-    "perturbed_minhash": 0.14035087719298245,
-    "robustness_drop": -0.004757656853999398
+    "perturbed_minhash": 0.1487603305785124,
+    "robustness_drop": -0.01316711023952935
   },
   {
     "function_name": "sliced_gan",
     "original_minhash": 0.03488372093023256,
     "original_exact": false,
-    "perturbed_minhash": 0.029411764705882353,
-    "robustness_drop": 0.005471956224350205
+    "perturbed_minhash": 0.03804347826086957,
+    "robustness_drop": -0.00315975733063701
   },
   {
     "function_name": "get_valid_cwd",
     "original_minhash": 0.3067484662576687,
     "original_exact": false,
-    "perturbed_minhash": 0.22994652406417113,
-    "robustness_drop": 0.07680194219349759
+    "perturbed_minhash": 0.2926829268292683,
+    "robustness_drop": 0.014065539428400442
   },
   {
     "function_name": "BGPFieldIPv4.i2m",
     "original_minhash": 0.07936507936507936,
     "original_exact": false,
-    "perturbed_minhash": 0.10679611650485436,
-    "robustness_drop": -0.027431037139775002
+    "perturbed_minhash": 0.1323529411764706,
+    "robustness_drop": -0.05298786181139123
   },
   {
     "function_name": "fields_for_model",
     "original_minhash": 0.31896551724137934,
     "original_exact": false,
-    "perturbed_minhash": 0.3431372549019608,
-    "robustness_drop": -0.02417173766058145
+    "perturbed_minhash": 0.23529411764705882,
+    "robustness_drop": 0.08367139959432052
   },
   {
     "function_name": "Server.parse_authn_request",
     "original_minhash": 0.17105263157894737,
     "original_exact": false,
-    "perturbed_minhash": 0.21311475409836064,
-    "robustness_drop": -0.04206212251941327
+    "perturbed_minhash": 0.19230769230769232,
+    "robustness_drop": -0.021255060728744946
   },
   {
     "function_name": "McVerry2006Asc._get_deltas",
     "original_minhash": 0.17796610169491525,
     "original_exact": false,
-    "perturbed_minhash": 0.1792452830188679,
-    "robustness_drop": -0.0012791813239526606
+    "perturbed_minhash": 0.14492753623188406,
+    "robustness_drop": 0.03303856546303119
   }
 ]
