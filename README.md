@@ -1,83 +1,192 @@
 # LLM Memorization & Understanding in Software Engineering
 
-This project evaluates whether Large Language Models (LLMs) "understand" software engineering tasks or simply "memorize" training data. It implements methodologies from recent research (Paper 2502 & 2505) to distinguish between the two.
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
+
+This project evaluates whether Large Language Models (LLMs) *understand* software engineering tasks or merely *memorize* training data. It adopts methodologies from recent research to distinguish verbatim recall from robust generalization under prompt perturbations.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.10+
-- A virtual environment is recommended.
 
-### Installation
-1.  **Clone the repository** (if applicable).
-2.  **Create and activate a virtual environment**:
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    ```
-3.  **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
+* **Google Colab** (recommended for free GPU access)
+* **Python 3.10+** (for local execution)
+* **Git**
 
-## 🚀 Quick Start
+---
 
-Run the full experiment with a single command:
+## ☁️ Running on Google Colab (Recommended)
 
-```bash
-./.venv/bin/python run_experiment.py
+Google Colab provides free access to **T4 GPUs**, which is particularly useful for 7B models such as Mistral or LLaMA.
+
+1. Open a new notebook in Google Colab.
+2. Change the runtime type to **T4 GPU**:
+   `Runtime` → `Change runtime type` → `T4 GPU`.
+3. Run the following commands in a notebook cell to set up the environment:
+
+```python
+# 1. Clone the repository
+!git clone https://github.com/itsmealessandro/private_ml4se_memorization.git
+%cd private_ml4se_memorization
+
+# 2. Install dependencies
+!pip install -r requirements.txt
+
+# 3. (Optional) Log in to Hugging Face for gated models (LLaMA / Mistral)
+# from huggingface_hub import login
+# login()
 ```
 
-Common options:
+4. Run the experiment:
 
-```bash
-./.venv/bin/python run_experiment.py --n 50 --model Qwen/Qwen2-0.5B-Instruct --output results.json
+```python
+!python run_experiment.py --n 50 --model "Qwen/Qwen2-0.5B-Instruct"
 ```
 
-Or, if you prefer Jupyter Notebook:
+---
+
+## 💻 Local Installation
+
+### 1. Clone the repository
 
 ```bash
-./.venv/bin/jupyter notebook main.ipynb
+git clone https://github.com/itsmealessandro/private_ml4se_memorization.git
+cd private_ml4se_memorization
 ```
+
+### 2. Create and activate a virtual environment
+
+```bash
+python3 -m venv .venv
+
+# macOS / Linux
+source .venv/bin/activate
+
+# Windows
+# .venv\Scripts\activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Usage
+
+Run the full experiment with default settings (Qwen-0.5B by default):
+
+```bash
+python run_experiment.py
+```
+
+### Common Options
+
+Run with more samples and specify a model:
+
+```bash
+python run_experiment.py \
+  --n 100 \
+  --model "Qwen/Qwen2-0.5B-Instruct" \
+  --output results_qwen.json
+```
+
+---
+
+## 🔐 Using Restricted Models (Llama, Mistral)
+
+To use gated models such as **Llama-2**, **Llama-3**, or **Mistral**, you must:
+
+1. Have a Hugging Face account
+2. Accept the model license on Hugging Face
+3. Log in from the terminal:
+
+```bash
+huggingface-cli login
+```
+
+Then run:
+
+```bash
+python run_experiment.py \
+  --model "meta-llama/Llama-2-7b-chat-hf" \
+  --n 50
+```
+
+---
 
 ## 📊 Methodology
 
 ### 1. Task: Code Generation
-The model is given a **Function Name** and a **Docstring** and must generate the corresponding Python code.
+
+The model is given:
+
+* A **function name**
+* A **docstring** (from the CodeSearchNet dataset)
+
+The goal is to generate the corresponding Python function implementation.
+
+---
 
 ### 2. Metrics
-We use three key metrics to evaluate the model:
 
-*   **MinHash Similarity (Jaccard)**: Measures the structural similarity between the generated code and the ground truth. High similarity (>0.7) suggests potential memorization.
-*   **Exact Match**: Checks if the model reproduces the code verbatim.
-*   **Robustness Drop (Understanding Proxy)**:
-    *   We **perturb** the input docstring (e.g., paraphrasing, adding prefixes).
-    *   We compare the MinHash similarity of the output from the *original* docstring vs. the *perturbed* docstring.
-    *   **Interpretation**:
-        *   **Small Drop**: The model is robust -> Likely **Understanding**.
-        *   **Large Drop**: The model fails when the prompt changes slightly -> Likely **Memorization** (trigger-based).
+Three complementary metrics are used:
 
-    ### 3. Output (results.json)
-    `run_experiment.py` writes a JSON report with:
+#### 🔹 MinHash Similarity (Jaccard)
 
-    - `summary`: medie aggregate (MinHash, exact match rate, robustness drop) e una baseline `background_*` (similarità attesa tra esempi non correlati).
-    - `results`: lista per-esempio con `original_minhash`, `original_exact`, `perturbed_minhash`, `robustness_drop`.
+Measures structural similarity between generated code and ground truth using token overlap.
 
-    Interpretazione pratica:
+* High similarity (> 0.7) → potential memorization
 
-    - `original_minhash` alto + `original_exact=True` => segnale compatibile con *verbatim recall*.
-    - `original_minhash` alto ma `robustness_drop` grande => segnale compatibile con comportamento *trigger-based* (proxy di memorization).
-    - `original_minhash` stabile anche con perturbazioni => più compatibile con generalizzazione/understanding.
+#### 🔹 Exact Match
 
-    Nota: queste sono evidenze indirette; non provano in modo definitivo che il dataset fosse nel training del modello.
+Checks whether the generated code is reproduced *verbatim*.
 
-## 🤖 Models
-The project is currently configured to use **Qwen/Qwen2-0.5B-Instruct** for fast iteration. You can change the model in `main.ipynb` by modifying the `LocalLLM` initialization.
+#### 🔹 Robustness Drop (Understanding Proxy)
 
-## 📂 Project Structure
-- `data/`: Stores downloaded datasets (cached by Hugging Face).
-- `evaluation/`: Contains metric implementations.
-    - `memorization_metrics.py`: MinHash and Exact Match logic.
-    - `robustness.py`: Docstring perturbation logic.
-- `models/`: Contains `model_wrappers.py` for LLM inference.
-- `prompts/`: Contains prompt templates.
+1. Perturb the input docstring (e.g. paraphrasing, adding prefixes like *"Please implement…"*)
+2. Generate code again
+3. Compare MinHash similarity before and after perturbation
+
+**Interpretation:**
+
+* Small drop → robust behavior → likely *understanding*
+* Large drop → brittle behavior → likely *memorization*
+
+---
+
+### 3. Output
+
+The experiment produces an `analysis_<timestamp>/` directory containing:
+
+* **results.json** – raw per-sample results
+* **REPORT.md** – human-readable summary, including:
+
+  * Verdict: `STRONG_EVIDENCE_MEMORIZATION` or `LITTLE_EVIDENCE_MEMORIZATION`
+  * Aggregate statistics and background similarity baselines
+  * Per-sample metrics:
+
+    * `original_minhash`
+    * `original_exact`
+    * `perturbed_minhash`
+    * `robustness_drop`
+
+---
+
+## 🤖 Models & Hardware
+
+We have tested this project with the following models:
+
+| Model                                  | Parameters | Requires Token? | Hardware Requirements |
+| -------------------------------------- | ---------- | --------------- | --------------------- |
+| **Qwen/Qwen2-0.5B-Instruct (Default)** | 0.5B       | No              | CPU / 8GB RAM         |
+| **mistralai/Mistral-7B-Instruct-v0.2** | 7B         | Yes             | T4 GPU / 16GB RAM     |
+| **meta-llama/Llama-2-7b-chat-hf**      | 7B         | Yes (Gated)     | T4 GPU / 16GB RAM     |
+
+### ⚠️ Hardware Notes
+
+* **0.5B models**: Run easily on Google Colab (CPU) or standard local laptops.
+* **7B models**: Require a T4 GPU (available on Colab Free Tier) or ~16GB RAM locally.
+
+If you encounter **"Killed"** or **OOM** errors, stick to Qwen or consider using quantization (requires code modification).
