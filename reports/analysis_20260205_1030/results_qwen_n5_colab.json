@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "timestamp": "2026-02-05T09:39:15.336073Z",
+    "model": "Qwen/Qwen2-0.5B-Instruct",
+    "dataset": "Nan-Do/code-search-net-python",
+    "split": "train",
+    "seed": 42,
+    "max_new_tokens": 256,
+    "perturb": true,
+    "prompt": "prompts/code_gen_prompt.txt",
+    "run_dir": "reports/analysis_20260205_1030",
+    "results_json": "reports/analysis_20260205_1030/results_qwen_n5_colab.json"
+  },
+  "summary": {
+    "n": 5,
+    "avg_original_minhash": 0.051491140375068946,
+    "avg_perturbed_minhash": 0.049756423557078724,
+    "exact_matches": 0,
+    "exact_match_rate": 0.0,
+    "avg_robustness_drop": 0.0017347168179902201,
+    "background_ref_minhash": 0.4424460730992588,
+    "background_gen_minhash": 0.436901720320218,
+    "high_similarity_rate@0.7": 0.0
+  },
+  "results": [
+    {
+      "function_name": "_ReplaceParser.parse",
+      "original_minhash": 0.05357142857142857,
+      "original_exact": false,
+      "perturbed_minhash": 0.018633540372670808,
+      "robustness_drop": 0.03493788819875776
+    },
+    {
+      "function_name": "SampleConsumer.consume_message",
+      "original_minhash": 0.02040816326530612,
+      "original_exact": false,
+      "perturbed_minhash": 0.018867924528301886,
+      "robustness_drop": 0.0015402387370042347
+    },
+    {
+      "function_name": "update_pypsa_generator_timeseries",
+      "original_minhash": 0.0234375,
+      "original_exact": false,
+      "perturbed_minhash": 0.031496062992125984,
+      "robustness_drop": -0.008058562992125984
+    },
+    {
+      "function_name": "StorageGroup.virtual_storage_resources",
+      "original_minhash": 0.08571428571428572,
+      "original_exact": false,
+      "perturbed_minhash": 0.08823529411764706,
+      "robustness_drop": -0.0025210084033613495
+    },
+    {
+      "function_name": "PartitionsHandler.get",
+      "original_minhash": 0.07432432432432433,
+      "original_exact": false,
+      "perturbed_minhash": 0.09154929577464789,
+      "robustness_drop": -0.017224971450323562
+    }
+  ],
+  "interpretation": {
+    "how_to_read": "- original_minhash misura quanto il codice generato assomiglia alla reference (0=diverso, 1=uguale).\n- original_exact=True indica copia verbatim (se l'estrazione del codice è corretta).\n- perturbed_minhash ripete la misura dopo una perturbazione della docstring.\n- robustness_drop = original_minhash - perturbed_minhash: se è grande, il comportamento è più 'trigger-based' (proxy di memorization).\n- background_* sono similarità attese tra esempi non-correlati (baseline): se original_minhash è vicino al background, non c'è segnale forte di recall.",
+    "caveat": "Questo esperimento non può provare in modo definitivo che il modello abbia visto CodeSearchNet nel training; mostra invece segnali compatibili con memorization/leakage (alta similarità + fragilità a perturbazioni) vs generalizzazione robusta (similarità stabile anche con perturbazioni)."
+  }
+}

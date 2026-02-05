@@ -1,0 +1,381 @@
+{
+  "meta": {
+    "timestamp": "2026-02-05T11:06:03.033164Z",
+    "model": "Qwen/Qwen2-0.5B-Instruct",
+    "dataset": "Nan-Do/code-search-net-python",
+    "split": "train",
+    "seed": 42,
+    "max_new_tokens": 256,
+    "perturb": true,
+    "prompt": "prompts/code_gen_prompt.txt",
+    "run_dir": "reports/analysis_20260205_1039",
+    "results_json": "reports/analysis_20260205_1039/results_qwen_n50_colab.json"
+  },
+  "summary": {
+    "n": 50,
+    "avg_original_minhash": 0.06225711296292638,
+    "avg_perturbed_minhash": 0.05538049982125027,
+    "exact_matches": 0,
+    "exact_match_rate": 0.0,
+    "avg_robustness_drop": 0.00687661314167611,
+    "background_ref_minhash": 0.11723733824617337,
+    "background_gen_minhash": 0.24971274557051967,
+    "high_similarity_rate@0.7": 0.0
+  },
+  "results": [
+    {
+      "function_name": "_ReplaceParser.parse",
+      "original_minhash": 0.05357142857142857,
+      "original_exact": false,
+      "perturbed_minhash": 0.018633540372670808,
+      "robustness_drop": 0.03493788819875776
+    },
+    {
+      "function_name": "SampleConsumer.consume_message",
+      "original_minhash": 0.02040816326530612,
+      "original_exact": false,
+      "perturbed_minhash": 0.018867924528301886,
+      "robustness_drop": 0.0015402387370042347
+    },
+    {
+      "function_name": "update_pypsa_generator_timeseries",
+      "original_minhash": 0.0234375,
+      "original_exact": false,
+      "perturbed_minhash": 0.031496062992125984,
+      "robustness_drop": -0.008058562992125984
+    },
+    {
+      "function_name": "StorageGroup.virtual_storage_resources",
+      "original_minhash": 0.08571428571428572,
+      "original_exact": false,
+      "perturbed_minhash": 0.08823529411764706,
+      "robustness_drop": -0.0025210084033613495
+    },
+    {
+      "function_name": "PartitionsHandler.get",
+      "original_minhash": 0.07432432432432433,
+      "original_exact": false,
+      "perturbed_minhash": 0.09154929577464789,
+      "robustness_drop": -0.017224971450323562
+    },
+    {
+      "function_name": "StorageObjectManager.delete_all_objects",
+      "original_minhash": 0.27325581395348836,
+      "original_exact": false,
+      "perturbed_minhash": 0.010101010101010102,
+      "robustness_drop": 0.26315480385247825
+    },
+    {
+      "function_name": "_SearchParser.reference",
+      "original_minhash": 0.05921052631578947,
+      "original_exact": false,
+      "perturbed_minhash": 0.03571428571428571,
+      "robustness_drop": 0.023496240601503758
+    },
+    {
+      "function_name": "PersonManager.create_superuser",
+      "original_minhash": 0.08108108108108109,
+      "original_exact": false,
+      "perturbed_minhash": 0.08108108108108109,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "run",
+      "original_minhash": 0.023255813953488372,
+      "original_exact": false,
+      "perturbed_minhash": 0.023255813953488372,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "gen_binary",
+      "original_minhash": 0.05673758865248227,
+      "original_exact": false,
+      "perturbed_minhash": 0.014814814814814815,
+      "robustness_drop": 0.04192277383766745
+    },
+    {
+      "function_name": "EighthSignup.remove_signup",
+      "original_minhash": 0.05952380952380952,
+      "original_exact": false,
+      "perturbed_minhash": 0.02912621359223301,
+      "robustness_drop": 0.03039759593157651
+    },
+    {
+      "function_name": "parse_registry_uri",
+      "original_minhash": 0.1038961038961039,
+      "original_exact": false,
+      "perturbed_minhash": 0.027777777777777776,
+      "robustness_drop": 0.07611832611832613
+    },
+    {
+      "function_name": "ContentImporter.recreate_relationships",
+      "original_minhash": 0.07741935483870968,
+      "original_exact": false,
+      "perturbed_minhash": 0.046511627906976744,
+      "robustness_drop": 0.030907726931732937
+    },
+    {
+      "function_name": "DockerSwarmClient.delete_all_services",
+      "original_minhash": 0.16981132075471697,
+      "original_exact": false,
+      "perturbed_minhash": 0.08620689655172414,
+      "robustness_drop": 0.08360442420299283
+    },
+    {
+      "function_name": "get_version",
+      "original_minhash": 0.05714285714285714,
+      "original_exact": false,
+      "perturbed_minhash": 0.05714285714285714,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "ModelBase.param_define",
+      "original_minhash": 0.022727272727272728,
+      "original_exact": false,
+      "perturbed_minhash": 0.10655737704918032,
+      "robustness_drop": -0.0838301043219076
+    },
+    {
+      "function_name": "get_hash",
+      "original_minhash": 0.0425531914893617,
+      "original_exact": false,
+      "perturbed_minhash": 0.0425531914893617,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "server_list",
+      "original_minhash": 0.03225806451612903,
+      "original_exact": false,
+      "perturbed_minhash": 0.03225806451612903,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "CloudDatabaseInstance.create_database",
+      "original_minhash": 0.0975609756097561,
+      "original_exact": false,
+      "perturbed_minhash": 0.07058823529411765,
+      "robustness_drop": 0.026972740315638455
+    },
+    {
+      "function_name": "siblings",
+      "original_minhash": 0.05263157894736842,
+      "original_exact": false,
+      "perturbed_minhash": 0.058333333333333334,
+      "robustness_drop": -0.005701754385964916
+    },
+    {
+      "function_name": "ConfigNode.metadata",
+      "original_minhash": 0.01818181818181818,
+      "original_exact": false,
+      "perturbed_minhash": 0.01818181818181818,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "concatenate_children",
+      "original_minhash": 0.027777777777777776,
+      "original_exact": false,
+      "perturbed_minhash": 0.027777777777777776,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "MakeJoint",
+      "original_minhash": 0.046511627906976744,
+      "original_exact": false,
+      "perturbed_minhash": 0.1111111111111111,
+      "robustness_drop": -0.06459948320413436
+    },
+    {
+      "function_name": "BossRemote.get_group",
+      "original_minhash": 0.038461538461538464,
+      "original_exact": false,
+      "perturbed_minhash": 0.038461538461538464,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "Cookies.render_response",
+      "original_minhash": 0.02564102564102564,
+      "original_exact": false,
+      "perturbed_minhash": 0.02564102564102564,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "get_scores",
+      "original_minhash": 0.012903225806451613,
+      "original_exact": false,
+      "perturbed_minhash": 0.012903225806451613,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "OmapiMessage.verify",
+      "original_minhash": 0.022222222222222223,
+      "original_exact": false,
+      "perturbed_minhash": 0.022222222222222223,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "is_local_maximum",
+      "original_minhash": 0.11553784860557768,
+      "original_exact": false,
+      "perturbed_minhash": 0.02717391304347826,
+      "robustness_drop": 0.08836393556209943
+    },
+    {
+      "function_name": "GettableProperty.tag",
+      "original_minhash": 0.047619047619047616,
+      "original_exact": false,
+      "perturbed_minhash": 0.022222222222222223,
+      "robustness_drop": 0.025396825396825393
+    },
+    {
+      "function_name": "_rdf2dot_simple",
+      "original_minhash": 0.016,
+      "original_exact": false,
+      "perturbed_minhash": 0.016,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "inputs",
+      "original_minhash": 0.011904761904761904,
+      "original_exact": false,
+      "perturbed_minhash": 0.10625,
+      "robustness_drop": -0.0943452380952381
+    },
+    {
+      "function_name": "fingerprint",
+      "original_minhash": 0.02857142857142857,
+      "original_exact": false,
+      "perturbed_minhash": 0.02857142857142857,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "_SearchParser.flags",
+      "original_minhash": 0.04477611940298507,
+      "original_exact": false,
+      "perturbed_minhash": 0.0728476821192053,
+      "robustness_drop": -0.028071562716220223
+    },
+    {
+      "function_name": "ArtifactFilterBackend.filter_queryset",
+      "original_minhash": 0.06779661016949153,
+      "original_exact": false,
+      "perturbed_minhash": 0.0625,
+      "robustness_drop": 0.005296610169491525
+    },
+    {
+      "function_name": "AutoScaleClient.delete_policy",
+      "original_minhash": 0.056818181818181816,
+      "original_exact": false,
+      "perturbed_minhash": 0.06976744186046512,
+      "robustness_drop": -0.012949260042283299
+    },
+    {
+      "function_name": "DefaultApi.get_billing_report_firmware_updates",
+      "original_minhash": 0.304,
+      "original_exact": false,
+      "perturbed_minhash": 0.3945578231292517,
+      "robustness_drop": -0.0905578231292517
+    },
+    {
+      "function_name": "StorageObjectManager._store_object",
+      "original_minhash": 0.034482758620689655,
+      "original_exact": false,
+      "perturbed_minhash": 0.034482758620689655,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "mode",
+      "original_minhash": 0.037037037037037035,
+      "original_exact": false,
+      "perturbed_minhash": 0.09219858156028368,
+      "robustness_drop": -0.05516154452324665
+    },
+    {
+      "function_name": "LensCosmo.nfw_physical2angle",
+      "original_minhash": 0.038461538461538464,
+      "original_exact": false,
+      "perturbed_minhash": 0.04285714285714286,
+      "robustness_drop": -0.004395604395604394
+    },
+    {
+      "function_name": "DeviceServerBase.handle_inform",
+      "original_minhash": 0.10204081632653061,
+      "original_exact": false,
+      "perturbed_minhash": 0.1,
+      "robustness_drop": 0.002040816326530609
+    },
+    {
+      "function_name": "Parser._trim_value",
+      "original_minhash": 0.12096774193548387,
+      "original_exact": false,
+      "perturbed_minhash": 0.12037037037037036,
+      "robustness_drop": 0.0005973715651135109
+    },
+    {
+      "function_name": "get_workflow",
+      "original_minhash": 0.025,
+      "original_exact": false,
+      "perturbed_minhash": 0.025,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "mann_whitney_u",
+      "original_minhash": 0.02586206896551724,
+      "original_exact": false,
+      "perturbed_minhash": 0.017241379310344827,
+      "robustness_drop": 0.008620689655172414
+    },
+    {
+      "function_name": "_file_size",
+      "original_minhash": 0.03225806451612903,
+      "original_exact": false,
+      "perturbed_minhash": 0.03225806451612903,
+      "robustness_drop": 0.0
+    },
+    {
+      "function_name": "UpdateCampaignPutRequest.state",
+      "original_minhash": 0.01639344262295082,
+      "original_exact": false,
+      "perturbed_minhash": 0.0547945205479452,
+      "robustness_drop": -0.03840107792499438
+    },
+    {
+      "function_name": "createWcsHDU",
+      "original_minhash": 0.128,
+      "original_exact": false,
+      "perturbed_minhash": 0.01834862385321101,
+      "robustness_drop": 0.10965137614678899
+    },
+    {
+      "function_name": "with_config",
+      "original_minhash": 0.07857142857142857,
+      "original_exact": false,
+      "perturbed_minhash": 0.09090909090909091,
+      "robustness_drop": -0.012337662337662342
+    },
+    {
+      "function_name": "BaseIdentity.list_credentials",
+      "original_minhash": 0.09433962264150944,
+      "original_exact": false,
+      "perturbed_minhash": 0.0851063829787234,
+      "robustness_drop": 0.009233239662786039
+    },
+    {
+      "function_name": "Model.set_model_pathnames",
+      "original_minhash": 0.022988505747126436,
+      "original_exact": false,
+      "perturbed_minhash": 0.023255813953488372,
+      "robustness_drop": -0.0002673082063619353
+    },
+    {
+      "function_name": "add_dyn",
+      "original_minhash": 0.005208333333333333,
+      "original_exact": false,
+      "perturbed_minhash": 0.005208333333333333,
+      "robustness_drop": 0.0
+    }
+  ],
+  "interpretation": {
+    "how_to_read": "- original_minhash misura quanto il codice generato assomiglia alla reference (0=diverso, 1=uguale).\n- original_exact=True indica copia verbatim (se l'estrazione del codice è corretta).\n- perturbed_minhash ripete la misura dopo una perturbazione della docstring.\n- robustness_drop = original_minhash - perturbed_minhash: se è grande, il comportamento è più 'trigger-based' (proxy di memorization).\n- background_* sono similarità attese tra esempi non-correlati (baseline): se original_minhash è vicino al background, non c'è segnale forte di recall.",
+    "caveat": "Questo esperimento non può provare in modo definitivo che il modello abbia visto CodeSearchNet nel training; mostra invece segnali compatibili con memorization/leakage (alta similarità + fragilità a perturbazioni) vs generalizzazione robusta (similarità stabile anche con perturbazioni)."
+  }
+}
