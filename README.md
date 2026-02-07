@@ -7,9 +7,9 @@
 **Academic Year:** 2025/2026
 
 ## 👥 Team Members
-* **Omar Dinari** (ID: [YOUR_ID])
-* **Alessandro Di Giacomo** (ID: [YOUR_ID])
-* **Agostino D'Agostino** (ID: [YOUR_ID])
+* **Omar Dinari** 
+* **Alessandro Di Giacomo** 
+* **Agostino D'Agostino** 
 
 ---
 
