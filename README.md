@@ -114,5 +114,5 @@ python run_experiment.py --model "mistralai/Mistral-7B-Instruct-v0.2" --n 100 --
 | Model | Hardware | Note |
 | --- | --- | --- |
 | **Qwen-0.5B** | CPU / 8GB RAM | Runs on standard laptops. |
-| **Mistral-7B** | T4 GPU / 16GB RAM | Requires GPU (Colab). |
+| **Mistral-7B** | T4 GPU / 16GB RAM | Requires GPU+HF Token. |
 | **Llama-2-7B** | T4 GPU / 16GB RAM | Requires GPU + HF Token. |
