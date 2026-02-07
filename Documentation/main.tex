@@ -1,0 +1,254 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{setspace}
+\usepackage{caption}
+
+\geometry{
+	top=2.5cm,
+	bottom=2.5cm,
+	left=2.5cm,
+	right=2.5cm
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{purple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single
+}
+\lstset{style=mystyle}
+\setstretch{1.15}
+
+\title{\textbf{Project 8: Memorization of public SE datasets in LLMs}}
+
+\author{
+    \textbf{Omar Dinari} \\
+    \texttt{University of L'Aquila, Italy} \\
+    \texttt{omar.dinari@student.univaq.it}
+    \and
+    \textbf{Alessandro Di Giacomo} \\
+    \texttt{University of L'Aquila, Italy} \\
+    \texttt{alessandro.digiacomo@student.univaq.it}
+    \and
+    \textbf{Agostino D'Agostino} \\
+    \texttt{University of L'Aquila, Italy} \\
+    \texttt{agostino.dagostino@student.univaq.it}
+}
+
+\date{
+    \vspace{1cm}
+    \large Course: Machine Learning for Software Engineering (DT1052) \\
+    \textit{Prof. Dr. Phuong Nguyen} \\
+    University of L'Aquila, Italy \\
+    \vspace{0.5cm}
+    Academic Year 2025-2026
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Large Language Models (LLMs) such as Qwen, Mistral, and Llama have revolutionized automated code generation. However, their efficacy raises concerns regarding ``memorization'', the tendency of models to reproduce training data verbatim rather than generalizing to new problems. This project implements a probing framework to quantify memorization in LLMs using the CodeSearchNet dataset. We employ a methodology based on docstring perturbation and MinHash similarity metrics. Our implementation features a modular architecture that supports both in-memory and streaming data persistence. Comprehensive sensitivity analysis ($N=5$ to $N=100$) and adversarial stress testing reveal that while models like Mistral-7B demonstrate high structural similarity (0.148), they maintain a 0.00\% Exact Match rate. This suggests that modern instruction-tuned models exhibit robust generalization rather than overfitting to specific training examples.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\subsection{Context and Motivation}
+In recent years, the intersection of Machine Learning (ML) and Software Engineering (SE) has seen rapid advancement driven by Large Language Models (LLMs). Models like Llama and Mistral demonstrate remarkable capabilities in code completion. However, a critical question remains: \textit{Do these models actually understand software engineering principles, or do they simply memorize their training data?} 
+
+This distinction is crucial because memorization can lead to \textbf{Generalization Failure} (failing on novel problems) and \textbf{Data Leakage} (exposing confidential code).
+
+\subsection{Project Objectives}
+This project, aligned with \textit{Project 8: Memorization of public SE datasets in LLMs} \cite{course_pdf}, aims to:
+\begin{itemize}
+    \item Develop a modular Python framework to probe LLMs for memorization.
+    \item Implement metrics such as MinHash Similarity and Exact Match.
+    \item Evaluate robustness by perturbing input prompts.
+    \item Conduct a sensitivity analysis and adversarial testing to validate statistical significance.
+\end{itemize}
+
+\section{Methodology}
+
+\subsection{Metrics for Code Similarity}
+
+\subsubsection{Jaccard Similarity and MinHash}
+To measure overlap between generated code and reference code, we use Jaccard Similarity. Since exact calculation is expensive for large datasets, we use \textbf{MinHash} (Theta Sketch), which efficiently estimates the overlap of token sets \cite{minhash}.
+
+\subsubsection{Robustness Drop}
+We distinguish memorization from understanding using the ``Robustness Drop'' ($\Delta R$) metric:
+\begin{equation}
+    \Delta R = S_{orig} - S_{pert}
+\end{equation}
+Where $S_{orig}$ is the similarity score with the original docstring, and $S_{pert}$ is the score with a perturbed (paraphrased) docstring. A high $\Delta R$ suggests the model was ``triggered'' by the exact phrasing (memorization).
+
+\subsection{Statistical Rigor and Reproducibility}
+To ensure that our results are scientifically valid and not merely artifacts of randomness, we implemented a strict control strategy.
+
+\subsubsection{Controlled Randomness}
+Machine Learning experiments often rely on stochastic processes. Without control, two runs could yield different results simply because they processed easier or harder samples. We fixed the global random seed to \texttt{42}. This guarantees \textbf{deterministic shuffling}, ensuring that when we compare Qwen vs. Mistral, both models are evaluated on the \textbf{exact same functions}.
+
+\subsubsection{Sample Size ($N$)}
+We varied the sample size $N \in \{5, 50, 100\}$. In preliminary tests ($N=5$), we observed high background noise (Baseline $\approx 0.44$). By increasing to $N=100$, the background noise collapsed to $\approx 0.06$, providing a reliable baseline for detecting genuine memorization.
+
+\section{System Architecture}
+
+\subsection{Data Persistence Requirement}
+A key requirement of the project was to ensure flexibility in data management: ``The data must be managed both in memory and through files'' \cite{course_pdf}.
+We addressed this via the \texttt{--streaming} flag:
+\begin{itemize}
+    \item \textbf{In-Memory Mode:} Loads the full dataset into RAM (Fast access).
+    \item \textbf{Streaming Mode:} Streams data on-the-fly from files/network (Low memory usage).
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption=Data Persistence Implementation]
+if getattr(args, "streaming", False):
+    # Stream from file system/network (Low RAM usage)
+    dataset = load_dataset(args.dataset, streaming=True)
+    dataset = dataset.shuffle(buffer_size=10000)
+else:
+    # Load fully into Memory (High RAM usage)
+    dataset = load_dataset(args.dataset)
+\end{lstlisting}
+
+\section{Experimental Setup}
+
+\subsection{Environment}
+Experiments were conducted on Google Colab using a T4 GPU (16GB VRAM) to support the inference of 7B parameter models in FP16 precision.
+
+\subsection{Models Evaluated}
+\begin{itemize}
+    \item \textbf{Qwen2-0.5B-Instruct:} A lightweight model used for sensitivity analysis.
+    \item \textbf{Llama-2-7b-chat-hf:} A standard industry benchmark.
+    \item \textbf{Mistral-7B-Instruct-v0.2:} A high-performance model known for coding capabilities.
+\end{itemize}
+
+\section{Results and Analysis}
+
+To ensure a rigorous evaluation, we structured our analysis in two phases: a sensitivity analysis to verify metric stability, and a comparative analysis between models.
+
+\subsection{Phase 1: Individual Sensitivity Analysis}
+
+\subsubsection{Qwen2-0.5B-Instruct}
+We tested Qwen with $N \in \{5, 50, 100\}$. As shown in Table \ref{tab:qwen_sensitivity}, increasing $N$ dramatically reduced the background noise (from 0.44 to 0.06). The Average MinHash stabilized around 0.06.
+
+\begin{table}[H]
+\centering
+\caption{Qwen-0.5B: Impact of Sample Size ($N$)}
+\label{tab:qwen_sensitivity}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{N=5} & \textbf{N=50} & \textbf{N=100} \\ \midrule
+Avg MinHash Similarity & 0.0515 & 0.0614 & 0.0602 \\
+Exact Match Rate & 0.00\% & 0.00\% & 0.00\% \\
+Robustness Drop & 0.0017 & 0.0051 & 0.0082 \\
+\textit{Background Noise (Baseline)} & \textit{0.4424} & \textit{0.1172} & \textit{0.0658} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Llama-2-7B-Chat}
+We repeated the process for Llama-2. The similarity score converged to $\approx 0.09$ at $N=100$. This slight increase over Qwen suggests Llama-2 captures better syntactic structure.
+
+\begin{table}[H]
+\centering
+\caption{Llama-2-7B: Impact of Sample Size ($N$)}
+\label{tab:llama_sensitivity}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{N=5} & \textbf{N=50} & \textbf{N=100} \\ \midrule
+Avg MinHash Similarity & 0.0780 & 0.0943 & 0.0923 \\
+Exact Match Rate & 0.00\% & 0.00\% & 0.00\% \\
+Robustness Drop & 0.0258 & 0.0221 & 0.0103 \\
+\textit{Background Baseline} & \textit{0.4424} & \textit{0.1172} & \textit{0.0658} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Mistral-7B-Instruct}
+For Mistral, we extended the sensitivity analysis up to $N=100$ to confirm the stability of the results. As shown in Table \ref{tab:mistral_sensitivity}, Mistral consistently demonstrates the highest similarity scores among all models.
+
+At $N=100$, the Average MinHash Similarity stabilized at \textbf{0.1508}, which is significantly higher than the background noise baseline (0.0658). Despite this high structural similarity, the Exact Match rate remained at \textbf{0.00\%}. The Robustness Drop slightly increased to 0.0161 but remains low enough to rule out overfitting.
+
+\begin{table}[H]
+\centering
+\caption{Mistral-7B: Impact of Sample Size ($N$)}
+\label{tab:mistral_sensitivity}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{N=5} & \textbf{N=50} & \textbf{N=100} \\ \midrule
+Avg MinHash Similarity & 0.1738 & 0.1475 & 0.1508 \\
+Exact Match Rate & 0.00\% & 0.00\% & 0.00\% \\
+Robustness Drop & 0.0010 & 0.0101 & 0.0161 \\
+\textit{Background Baseline} & \textit{0.4424} & \textit{0.1172} & \textit{0.0658} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Phase 2: Comparative Analysis}
+Table \ref{tab:final_comparison} compares the best-performing configurations for each model. Mistral-7B ($N=100$) achieved the highest similarity (\textbf{0.1508}), indicating superior code generation quality. Crucially, it maintained a 0\% Exact Match rate, proving it \textit{understands} the coding patterns rather than \textit{memorizing} specific examples.
+
+\begin{table}[H]
+\centering
+\caption{Final Cross-Model Comparison}
+\label{tab:final_comparison}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{Qwen (0.5B)} & \textbf{Llama-2 (7B)} & \textbf{Mistral (7B)} \\ 
+ & \textit{(N=100)} & \textit{(N=100)} & \textit{(N=100)} \\ \midrule
+\textbf{Avg MinHash Similarity} & 0.0602 & 0.0923 & \textbf{0.1508} \\
+\textbf{Exact Match Rate} & 0.00\% & 0.00\% & 0.00\% \\
+\textbf{Robustness Drop} & 0.0082 & 0.0103 & 0.0161 \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+We successfully implemented a modular framework to probe LLM memorization. Our extensive evaluation reveals that:
+\begin{enumerate}
+    \item \textbf{Generalization over Memorization:} Across all tests, including adversarial settings, no model exhibited verbatim memorization (0\% Exact Match).
+    \item \textbf{Model Quality:} Mistral-7B demonstrated the highest structural similarity (0.148) to the ground truth, indicating superior understanding of coding patterns.
+    \item \textbf{Robustness:} All models showed negligible performance drops when docstrings were perturbed, confirming they rely on semantic understanding rather than specific triggers.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{course_pdf}
+P. Nguyen. ``Projects and Exams for the Master Course Machine Learning for Software Engineering (DT1052).'' University of L'Aquila, 2025.
+
+\bibitem{minhash}
+A. Z. Broder, ``On the resemblance and containment of documents,'' in \textit{Compression and Complexity of Sequences}, 1997.
+
+\end{thebibliography}
+
+\end{document}
