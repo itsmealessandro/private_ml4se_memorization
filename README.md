@@ -48,8 +48,14 @@ We employ a probing framework based on **MinHash Similarity**, **Exact Match**, 
 │   └── report.pdf
 ├── run_experiment.py        # Main entry point for experiments
 ├── requirements.txt         # Dependencies
-└── README.md                # This file
+├── README.md                # This file
+├── STRUTTURA_CODICE.md      # 🇮🇹 Italian: Complete code structure documentation
+└── CODE_STRUCTURE.md        # 🇬🇧 English: Complete code structure documentation
 ```
+
+> 📚 **New!** For a detailed explanation of the code architecture, workflow, and components, see:
+> - [STRUTTURA_CODICE.md](STRUTTURA_CODICE.md) (Italian) 🇮🇹
+> - [CODE_STRUCTURE.md](CODE_STRUCTURE.md) (English) 🇬🇧
 
 ---
 
